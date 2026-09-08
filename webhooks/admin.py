@@ -1,3 +1,6 @@
 from django.contrib import admin
+from webhooks.models import Webhook
 
-# Register your models here.
+class WebhookAdmin(admin.ModelAdmin):
+    list_display = ('id','event_type', 'event')
+    list_filter = ('event_type',)

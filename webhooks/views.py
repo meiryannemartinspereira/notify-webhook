@@ -1,8 +1,15 @@
 from rest_framework import views, response, status
+import json
+from webhooks.models import webhook
 
 class WebhookOrderView(views.APIView):
     def post(self, request):
         data = request.data
+
+        webhook.objects.create(
+            event_type=data.get('event_type'),
+            event=json.dumps(data, ensure_ascii=False),
+        )
 
         return response.Response(
             data = data,
