@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -127,3 +128,9 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CALLMEBOT_API_URL = config('CALLMEBOT_API_URL')
+CALLMEBOT_API_KEY = config('CALLMEBOT_API_KEY')
+CALLMEBOT_PHONE_NUMBER = config('CALLMEBOT_PHONE_NUMBER')
