@@ -1,5 +1,8 @@
-from rest_framework import views, response, status
 import json
+from rest_framework import views, response, status
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from webhooks.models import Webhook
 from webhooks.messages import outflow_message
 from services.callmebot import CallMeBot
@@ -29,6 +32,18 @@ class WebhookOrderView(views.APIView):
 
         call_me_bot = CallMeBot()
         call_me_bot.send_message(message)
+
+        data['total_value'] = total_value
+        data['profit'] = profit
+
+        send_mail(
+            subject='Nova Saída (SGE)',
+            message='',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[settings.EMAIL_ADMIN_RECEIVER],
+            html_message=render_to_string('outflow.html', data),
+            fail_silently=False,
+        )
 
         return response.Response(
             data = data,

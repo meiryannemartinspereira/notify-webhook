@@ -123,14 +123,15 @@ STATIC_URL = 'static/'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CALLMEBOT_API_URL = config('CALLMEBOT_API_URL')
 CALLMEBOT_API_KEY = config('CALLMEBOT_API_KEY')
 CALLMEBOT_PHONE_NUMBER = config('CALLMEBOT_PHONE_NUMBER')
+
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_ADMIN_RECEIVER = config('EMAIL_ADMIN_RECEIVER')
